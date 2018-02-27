@@ -17,10 +17,11 @@ import FlatList from '../utils/flat-list';
 import Style from '../../styles/camera-roll';
 
 class CameraRollScreen extends Component {
+  log = [];
+  logIndex = 0;
+
   constructor(props) {
     super(props);
-
-    log = '';
 
     this.state = {
       selected: [],
@@ -28,26 +29,33 @@ class CameraRollScreen extends Component {
   }
 
   componentDidMount() {
+    this._updateLog('componentDidMount:');
     this.initPhotos();
   }
 
   componentWillUnmount() {
+    this._updateLog('componentWillUnmount:');
     this.resetPhotos();
   }
 
   componentDidUpdate() {
-    this.log = this.log + '\n' + JSON.stringify(this.props.store);
-    console.log('####### INIT');
-    console.log(JSON.stringify(this.props.store));
-    console.log('####### END');
+    this._updateLog('componentDidUpdate:');
+    this._updateLog(this.props.store);
+  }
+
+  _updateLog(newLog) {
+    debugger;
+    this.log.push(newLog);
   }
 
   initPhotos = () => {
+    this._updateLog('initPhotos:');
     const { actions, store } = this.props;
     actions.cameraRoll.getPhotos(store.cameraRoll.photos.initParams);
   };
 
   resetPhotos = () => {
+    this._updateLog('resetPhotos:');
     const { actions } = this.props;
     actions.cameraRoll.resetPhotos();
     setTimeout(() => {
@@ -56,18 +64,17 @@ class CameraRollScreen extends Component {
   };
 
   loadMorePhotos = () => {
+    this._updateLog('loadMorePhotos:');
     const { actions, store } = this.props;
-    actions.cameraRoll.getMorePhotos(store.cameraRoll.photos.params);
+    if (!store.cameraRoll.photos.loadMore.loading) {
+      actions.cameraRoll.getMorePhotos(store.cameraRoll.photos.params);
+    }
   };
 
   copyToClipboard = async () => {
     const { publicName, albumId } = this.props;
 
-    await Clipboard.setString(this.log);
-
-    console.log('####### INIT');
-    console.log(this.log);
-    console.log('####### END');
+    await Clipboard.setString(JSON.stringify(this.log));
 
     this.setState(
       {
@@ -183,12 +190,20 @@ class CameraRollScreen extends Component {
                     fontWeight: '700',
                   }}
                 >
-                  {'Status: '}
+                  {'ST1: '}
                   {store.cameraRoll.photos.error
                     ? 'ERROR'
                     : store.cameraRoll.photos.loading
                       ? 'LOADING'
-                      : store.cameraRoll.photos.loaded ? 'LOADED' : 'UNKNOWN'}
+                      : store.cameraRoll.photos.loaded ? 'LOADED' : 'NONE'}
+                  {' - ST2: '}
+                  {store.cameraRoll.photos.loadMore.error
+                    ? 'ERROR'
+                    : store.cameraRoll.photos.loadMore.loading
+                      ? 'LOADING'
+                      : store.cameraRoll.photos.loadMore.loaded
+                        ? 'LOADED'
+                        : 'NONE'}
                 </Text>
               </View>
               <FlatList
@@ -197,7 +212,6 @@ class CameraRollScreen extends Component {
                 numColumns={3}
                 renderItem={this.renderImage}
                 onEndReached={this.loadMorePhotos}
-                onEndReachedThreshold={1}
                 loadingMore={store.cameraRoll.photos.loadMore.loading}
               />
             </View>

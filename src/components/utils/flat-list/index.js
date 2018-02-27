@@ -54,6 +54,7 @@ export default class FlatList extends Component {
         ListFooterComponent={
           this.props.ListFooterComponent || this.listFooterComponent()
         }
+        onEndReachedThreshold={1}
       />
     );
   }
