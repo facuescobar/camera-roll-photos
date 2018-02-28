@@ -17,9 +17,9 @@ const initialLoadState = {
 };
 
 const initialParamsState = {
-  first: 30,
+  first: 1,
   assetType: 'Photos',
-  groupTypes: 'All',
+  // groupTypes: 'All',
 };
 
 const initialGetPhotosState = {
