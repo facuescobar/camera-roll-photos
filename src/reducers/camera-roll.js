@@ -1,6 +1,6 @@
 /*
-* Camera Roll Reducer
-*/
+ * Camera Roll Reducer
+ */
 
 import * as ActionTypes from '../actions/action-types';
 

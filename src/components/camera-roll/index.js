@@ -226,28 +226,38 @@ class CameraRollScreen extends Component {
           {'HasMore: '}
           {String(store.cameraRoll.photos.loadMore.hasMore)}
         </Text>
-        {!this.state.infiniteScroll && (
-          <View style={{ flex: 1, justifyContent: 'center' }}>
-            <TouchableOpacity
-              onPress={this.loadMorePhotos}
-              style={{
-                justifyContent: 'center',
-                backgroundColor: 'coral',
-                padding: 10,
-                borderRadius: 5,
-              }}
-            >
-              <Text
+        {!this.state.infiniteScroll &&
+          store.cameraRoll.photos.loadMore.hasMore && (
+            <View style={{ flex: 1, justifyContent: 'center' }}>
+              <TouchableOpacity
+                onPress={this.loadMorePhotos}
                 style={{
-                  textAlign: 'center',
-                  color: 'white',
-                  fontWeight: '700',
-                  paddingHorizontal: 10,
+                  justifyContent: 'center',
+                  backgroundColor: 'coral',
+                  padding: 10,
+                  borderRadius: 5,
                 }}
               >
-                {'Load More Photos'}
-              </Text>
-            </TouchableOpacity>
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    color: 'white',
+                    fontWeight: '700',
+                    paddingHorizontal: 10,
+                  }}
+                >
+                  {'Load More Photos'}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        {!store.cameraRoll.photos.loadMore.hasMore && (
+          <View style={{ flex: 1, justifyContent: 'center' }}>
+            <Text
+              style={{ color: 'white', fontWeight: '700', textAlign: 'center' }}
+            >
+              {'ALL PHOTOS LOADED'}
+            </Text>
           </View>
         )}
       </View>
