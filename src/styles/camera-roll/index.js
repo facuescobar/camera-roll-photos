@@ -12,7 +12,7 @@ const checkBoxSize = itemSize * 0.15;
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'darkcyan',
+    backgroundColor: 'white',
     justifyContent: 'center',
   },
   activityIndicator: {

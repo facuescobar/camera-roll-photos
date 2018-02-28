@@ -32,6 +32,7 @@ const initialGetPhotosState = {
     ...initialParamsState,
   },
   loadMore: {
+    hasMore: true,
     ...initialLoadState,
   },
 };
@@ -56,7 +57,6 @@ export default function cameraRoll(state = initialState, action = {}) {
      */
 
     case ActionTypes.CAMERA_ROLL_GET_PHOTOS_INIT: {
-      debugger;
       return {
         ...state,
         ACTION: ActionTypes.CAMERA_ROLL_GET_PHOTOS_INIT,
@@ -66,7 +66,6 @@ export default function cameraRoll(state = initialState, action = {}) {
       };
     }
     case ActionTypes.CAMERA_ROLL_GET_PHOTOS_START: {
-      debugger;
       return {
         ...state,
         ACTION: ActionTypes.CAMERA_ROLL_GET_PHOTOS_START,
@@ -77,7 +76,6 @@ export default function cameraRoll(state = initialState, action = {}) {
       };
     }
     case ActionTypes.CAMERA_ROLL_GET_PHOTOS_SUCCESS: {
-      debugger;
       return {
         ...state,
         ACTION: ActionTypes.CAMERA_ROLL_GET_PHOTOS_SUCCESS,
@@ -89,13 +87,16 @@ export default function cameraRoll(state = initialState, action = {}) {
             ...state.photos.params,
             after: payload.photos.pageInfo.endCursor,
           },
+          loadMore: {
+            ...state.photos.loadMore,
+            hasMore: payload.photos.pageInfo.hasNextPage,
+          },
           loading: false,
           loaded: true,
         },
       };
     }
     case ActionTypes.CAMERA_ROLL_GET_PHOTOS_FAILURE: {
-      debugger;
       return {
         ...state,
         ACTION: ActionTypes.CAMERA_ROLL_GET_PHOTOS_FAILURE,
@@ -112,7 +113,6 @@ export default function cameraRoll(state = initialState, action = {}) {
      */
 
     case ActionTypes.CAMERA_ROLL_GET_MORE_PHOTOS_START: {
-      debugger;
       return {
         ...state,
         ACTION: ActionTypes.CAMERA_ROLL_GET_MORE_PHOTOS_START,
@@ -120,7 +120,6 @@ export default function cameraRoll(state = initialState, action = {}) {
           ...state.photos,
           loadMore: {
             ...state.photos.loadMore,
-            ...initialLoadState,
             loading: true,
           },
         },
@@ -140,6 +139,7 @@ export default function cameraRoll(state = initialState, action = {}) {
           },
           loadMore: {
             ...state.photos.loadMore,
+            hasMore: payload.photos.pageInfo.hasNextPage,
             loading: false,
             loaded: true,
           },

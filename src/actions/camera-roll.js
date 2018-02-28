@@ -17,10 +17,8 @@ export function getPhotos(options) {
     const dispatcher = new ActionDispatcher(dispatch);
     try {
       dispatcher.dispatch(ActionTypes.CAMERA_ROLL_GET_PHOTOS_START);
-      debugger;
       const photos = await CameraRoll.getPhotos(options);
 
-      debugger;
       dispatcher.dispatch(ActionTypes.CAMERA_ROLL_GET_PHOTOS_SUCCESS, {
         photos: camelcaseKeys(photos),
       });
@@ -51,7 +49,7 @@ export function getMorePhotos(options) {
         photos: camelcaseKeys(photos),
       });
     } catch (error) {
-      console.warn('getMorePhotos : Error');
+      console.warn('getMorePhotos : Error', error);
       console.log(error);
       dispatcher.dispatch(ActionTypes.CAMERA_ROLL_GET_MORE_PHOTOS_FAILURE, {
         error,

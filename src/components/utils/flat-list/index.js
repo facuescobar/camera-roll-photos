@@ -37,20 +37,20 @@ export default class FlatList extends Component {
       <NativeFlatList
         {...this.props}
         /* Load More */
-        onEndReached={() => {
-          if (!this._onEndReachedCalledDuringMomentum) {
-            if (this.props.onEndReached) {
-              this.props.onEndReached();
-            }
-            this._onEndReachedCalledDuringMomentum = true;
-          }
-        }}
-        onMomentumScrollBegin={() => {
-          this._onEndReachedCalledDuringMomentum = false;
-          if (this.props.onMomentumScrollBegin) {
-            this.props.onMomentumScrollBegin();
-          }
-        }}
+        // onEndReached={() => {
+        //   if (!this._onEndReachedCalledDuringMomentum) {
+        //     if (this.props.onEndReached) {
+        //       this.props.onEndReached();
+        //     }
+        //     this._onEndReachedCalledDuringMomentum = true;
+        //   }
+        // }}
+        // onMomentumScrollBegin={() => {
+        //   this._onEndReachedCalledDuringMomentum = false;
+        //   if (this.props.onMomentumScrollBegin) {
+        //     this.props.onMomentumScrollBegin();
+        //   }
+        // }}
         ListFooterComponent={
           this.props.ListFooterComponent || this.listFooterComponent()
         }
