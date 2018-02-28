@@ -412,18 +412,6 @@ class CameraRollScreen extends Component {
         ) : (
           <View style={Style.container}>
             {this._renderStatusBar()}
-            {/* {store.cameraRoll.photos.edges.length === 0 && (
-              <Text
-                style={{
-                  padding: 10,
-                  textAlign: 'center',
-                  fontWeight: '700',
-                  fontSize: 16,
-                }}
-              >
-                {'Camera Roll list is empty'}
-              </Text>
-            )} */}
             {this.state.renderContent ? (
               this._renderFlatlist()
             ) : (
