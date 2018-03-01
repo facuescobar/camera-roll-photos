@@ -18,8 +18,8 @@ const initialLoadState = {
 
 const initialParamsState = {
   first: 6,
-  // assetType: 'Photos',
-  // groupTypes: 'CameraRoll',
+  assetType: 'Photos',
+  // groupTypes: 'All',
 };
 
 const initialGetPhotosState = {
